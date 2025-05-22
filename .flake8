@@ -1,2 +1,4 @@
 [flake8]
 extend-ignore = E203,E701
+per-file-ignores =
+    src/backend/settings.py:E501

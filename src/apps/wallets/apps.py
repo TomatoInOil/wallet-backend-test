@@ -6,7 +6,7 @@ class WalletsConfig(AppConfig):
     name = "apps.wallets"
 
     def ready(self):
-        from decimal import getcontext, ROUND_HALF_UP
+        from decimal import ROUND_HALF_UP, getcontext
 
         getcontext().prec = 28
         getcontext().rounding = ROUND_HALF_UP

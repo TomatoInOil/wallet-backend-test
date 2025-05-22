@@ -1,5 +1,6 @@
 from django.urls import path
-from .views import WalletView, OperationCreateView
+
+from .views import OperationCreateView, WalletView
 
 urlpatterns = [
     path(

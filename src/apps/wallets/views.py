@@ -1,13 +1,12 @@
 from django.db import transaction
-from django.db.models import F
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
 
-from .models import Wallet, Operation, OperationType
-from .serializers import WalletSerializer, OperationSerializer
+from .models import Operation, OperationType, Wallet
+from .serializers import OperationSerializer, WalletSerializer
 from .wallet_service import WalletService
 
 

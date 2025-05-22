@@ -1,6 +1,6 @@
 from django.contrib import admin
 
-from .models import Wallet, Operation
+from .models import Operation, Wallet
 
 
 class OperationInline(admin.TabularInline):
