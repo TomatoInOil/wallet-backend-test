@@ -3,9 +3,9 @@ name = "wallet-backend-test"
 version = "0.1.0"
 description = ""
 authors = [
-    {name = "Daniil Pautov",email = "danpautoff@yandex.ru"}
+    { name = "Daniil Pautov", email = "danpautoff@yandex.ru" }
 ]
-license = {text = "MIT"}
+license = { text = "MIT" }
 readme = "README.md"
 requires-python = "3.12.*"
 dependencies = [
@@ -27,3 +27,8 @@ isort = "^6.0.1"
 black = "^25.1.0"
 pre-commit = "^4.2.0"
 
+[tool.isort]
+profile = "black"
+
+[tool.black]
+line-length = 79
