@@ -112,12 +112,12 @@ jobs:
           script: |
             cd ${{ env.DEPLOY_PATH }}
 
-            docker image prune -f
+            sudo docker image prune -f
 
-            docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:prod
+            sudo docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:prod
 
-            docker compose --file infra/docker-compose.prod.yml stop nginx backend db
+            sudo docker compose --file infra/docker-compose.prod.yml stop nginx backend db
 
-            docker compose --file infra/docker-compose.prod.yml rm backend -f
+            sudo docker compose --file infra/docker-compose.prod.yml rm backend -f
 
-            docker compose --env-file .env --file infra/docker-compose.prod.yml up -d
+            sudo docker compose --env-file .env --file infra/docker-compose.prod.yml up -d

@@ -1,6 +1,6 @@
 FROM python:3.12-slim AS requirements
 
-WORKDIR ./app
+WORKDIR /app
 
 RUN pip install poetry==2.1.2
 
@@ -11,7 +11,7 @@ RUN poetry config virtualenvs.create false && \
 
 FROM python:3.12-slim
 
-WORKDIR ./app
+WORKDIR /app
 
 COPY --from=requirements /usr/local/lib/python3.12/site-packages /usr/local/lib/python3.12/site-packages
 COPY --from=requirements /usr/local/bin /usr/local/bin
