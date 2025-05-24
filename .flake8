@@ -1,4 +1,4 @@
 [flake8]
 extend-ignore = E203,E701
 per-file-ignores =
-    src/backend/settings/*:E501
+    src/backend/settings/*:E501,F405
