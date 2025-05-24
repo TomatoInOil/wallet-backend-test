@@ -1,0 +1,119 @@
+name: Deploy
+
+on:
+  workflow_run:
+    workflows: [ "Test and Lint" ]
+    branches: [ master ]
+    types:
+      - completed
+  workflow_dispatch:
+
+
+env:
+  REGISTRY: ghcr.io
+  IMAGE_NAME: wallet-backend-test
+  DEPLOY_PATH: ~/wallet-backend
+  REP_OWNER: tomatoinoil
+
+defaults:
+  run:
+    working-directory: .
+
+jobs:
+  build_and_push:
+    name: Push Docker image to GitHub Packages
+    runs-on: ubuntu-latest
+
+    permissions:
+      contents: read
+      packages: write
+      id-token: write
+
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+
+      - name: Log in to the Container registry
+        uses: docker/login-action@v3
+        with:
+          registry: ${{ env.REGISTRY }}
+          username: ${{ github.actor }}
+          password: ${{ secrets.GITHUB_TOKEN }}
+
+      - name: Build and push backend
+        uses: docker/build-push-action@v6
+        with:
+          context: .
+          push: true
+          tags: ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:latest
+
+
+  deploy:
+    name: Deploy
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    needs: build_and_push
+    steps:
+      - name: Check out repository
+        uses: actions/checkout@v4
+
+      - name: Copy docker-compose file
+        uses: appleboy/scp-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          source: "./infra/docker-compose.prod.yml, ./infra/default.conf"
+          target: ${{ env.DEPLOY_PATH }}
+          strip_components: 1
+
+      - name: Create .env file
+        uses: appleboy/ssh-action@v1
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ env.DEPLOY_PATH }}
+            rm -f .env
+            touch .env
+
+            echo DJANGO_SETTINGS_MODULE=${{ vars.DJANGO_SETTINGS_MODULE }} >> .env
+            echo DJANGO_SECRET_KEY='${{ secrets.DJANGO_SECRET_KEY }}' >> .env
+            echo DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }} >> .env
+            echo DOMAIN=${{ secrets.DOMAIN }} >> .env
+
+            echo DB_ENGINE=${{ secrets.DB_ENGINE }} >> .env
+            echo POSTGRES_DB=${{ secrets.POSTGRES_DB }} >> .env
+            echo POSTGRES_USER=${{ secrets.POSTGRES_USER }} >> .env
+            echo POSTGRES_PASSWORD=${{ secrets.POSTGRES_PASSWORD }} >> .env
+            echo DB_HOST=${{ secrets.DB_HOST }} >> .env
+            echo DB_PORT=${{ secrets.DB_PORT }} >> .env
+
+
+  start_application:
+    name: Start application
+    runs-on: ubuntu-latest
+    environment:
+      name: prod
+    needs: deploy
+    steps:
+      - name: Start appication
+        uses: appleboy/ssh-action@master
+        with:
+          host: ${{ secrets.HOST }}
+          username: ${{ secrets.SSH_USERNAME }}
+          key: ${{ secrets.SSH_KEY }}
+          script: |
+            cd ${{ env.DEPLOY_PATH }}
+
+            docker image prune -f
+
+            docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:latest
+
+            docker compose --file infra/docker-compose.prod.yml stop nginx backend db
+
+            docker compose --file infra/docker-compose.prod.yml rm backend -f
+
+            docker compose --env-file .env --file infra/docker-compose.prod.yml up -d
