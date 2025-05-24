@@ -65,7 +65,10 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: "./infra/docker-compose.prod.yml, ./infra/default.conf"
+          source: >-
+            ./infra/docker-compose.yml,
+            ./infra/docker-compose.prod.yml,
+            ./infra/default.prod.conf
           target: ${{ env.DEPLOY_PATH }}
           strip_components: 1
 
@@ -80,7 +83,7 @@ jobs:
             rm -f .env
             touch .env
 
-            echo DJANGO_SETTINGS_MODULE=${{ vars.DJANGO_SETTINGS_MODULE }} >> .env
+            echo DJANGO_SETTINGS_MODULE=${{ secrets.DJANGO_SETTINGS_MODULE }} >> .env
             echo DJANGO_SECRET_KEY='${{ secrets.DJANGO_SECRET_KEY }}' >> .env
             echo DJANGO_DEBUG=${{ secrets.DJANGO_DEBUG }} >> .env
             echo DOMAIN=${{ secrets.DOMAIN }} >> .env
