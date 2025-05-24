@@ -44,8 +44,9 @@ jobs:
         uses: docker/build-push-action@v6
         with:
           context: .
+          file: ./infra/Dockerfile
           push: true
-          tags: ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:latest
+          tags: ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:prod
 
 
   deploy:
@@ -110,7 +111,7 @@ jobs:
 
             docker image prune -f
 
-            docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:latest
+            docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:prod
 
             docker compose --file infra/docker-compose.prod.yml stop nginx backend db
 
