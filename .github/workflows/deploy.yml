@@ -65,14 +65,7 @@ jobs:
           host: ${{ secrets.HOST }}
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
-          source: >-
-            ./infra/docker-compose.yaml,
-            ./infra/docker-compose.prod.yaml,
-            ./infra/nginx/default.prod.conf
-            ./infra/alloy/config.alloy
-            ./infra/grafana/datasources.yaml
-            ./infra/loki/config.yaml
-            ./infra/prometheus/prometheus.yaml
+          source: "./infra"
           target: ${{ env.DEPLOY_PATH }}
 
       - name: Create .env file
