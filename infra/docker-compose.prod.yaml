@@ -1,0 +1,51 @@
+services:
+  db:
+    extends:
+      file: docker-compose.yaml
+      service: db
+
+  backend:
+    image: ghcr.io/tomatoinoil/wallet-backend-test:prod
+    extends:
+      file: docker-compose.yaml
+      service: backend
+    depends_on:
+      - db
+
+  nginx:
+    extends:
+      file: docker-compose.yaml
+      service: nginx
+    volumes:
+      - ./nginx/default.prod.conf:/etc/nginx/conf.d/default.conf
+      - static_value:/var/html/static/
+      - media_value:/var/html/media/
+    depends_on:
+      - backend
+
+  alloy:
+    extends:
+      file: docker-compose.yaml
+      service: alloy
+
+  loki:
+    extends:
+      file: docker-compose.yaml
+      service: loki
+
+  prometheus:
+    extends:
+      file: docker-compose.yaml
+      service: prometheus
+
+  grafana:
+    extends:
+      file: docker-compose.yaml
+      service: grafana
+
+volumes:
+  static_value:
+  media_value:
+  data_value:
+  grafanadata:
+  prometheusdata:

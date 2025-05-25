@@ -66,11 +66,14 @@ jobs:
           username: ${{ secrets.SSH_USERNAME }}
           key: ${{ secrets.SSH_KEY }}
           source: >-
-            ./infra/docker-compose.yml,
-            ./infra/docker-compose.prod.yml,
-            ./infra/default.prod.conf
+            ./infra/docker-compose.yaml,
+            ./infra/docker-compose.prod.yaml,
+            ./infra/nginx/default.prod.conf
+            ./infra/alloy/config.alloy
+            ./infra/grafana/datasources.yaml
+            ./infra/loki/config.yaml
+            ./infra/prometheus/prometheus.yaml
           target: ${{ env.DEPLOY_PATH }}
-          strip_components: 1
 
       - name: Create .env file
         uses: appleboy/ssh-action@v1
@@ -116,8 +119,8 @@ jobs:
 
             sudo docker pull ${{ env.REGISTRY }}/${{ env.REP_OWNER }}/${{ env.IMAGE_NAME }}:prod
 
-            sudo docker compose --file infra/docker-compose.prod.yml stop nginx backend db
+            sudo docker compose --file infra/docker-compose.prod.yaml stop
 
-            sudo docker compose --file infra/docker-compose.prod.yml rm backend -f
+            sudo docker compose --file infra/docker-compose.prod.yaml rm backend -f
 
-            sudo docker compose --env-file .env --file infra/docker-compose.prod.yml up -d
+            sudo docker compose --env-file .env --file infra/docker-compose.prod.yaml up -d
