@@ -141,3 +141,4 @@ python manage.py test
   - Data source: _Loki_  
   - query: `{platform="docker", service_name="backend"}`  
   - Visualization: _Logs_  
+- Или посмотреть их подробнее в разделе drilldown > logs

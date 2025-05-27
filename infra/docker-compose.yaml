@@ -27,7 +27,7 @@ services:
     command: >
       bash -c "python manage.py migrate
       && python manage.py collectstatic --noinput
-      && gunicorn backend.wsgi:application --bind 0:8000"
+      && gunicorn backend.wsgi:application --bind 0:8000 --access-logfile '-' --error-logfile '-'"
     restart: unless-stopped
     volumes:
       - static_value:/app/static/
