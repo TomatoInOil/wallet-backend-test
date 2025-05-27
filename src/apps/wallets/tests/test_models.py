@@ -2,7 +2,6 @@ from datetime import timedelta
 from decimal import Decimal
 from uuid import UUID
 
-from django.contrib.auth import get_user_model
 from django.core.exceptions import ValidationError
 from django.db import IntegrityError
 from django.test import TestCase
@@ -13,26 +12,18 @@ from apps.wallets.models import Operation, OperationType, Wallet
 TEST_PASSWORD = "testpass"
 TEST_USERNAME = "testuser"
 
-User = get_user_model()
-
 
 class WalletModelTest(TestCase):
     INITIAL_BALANCE = Decimal("1000.00")
     TEST_VALID_AMOUNT = Decimal("50.00")
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            username=TEST_USERNAME, password=TEST_PASSWORD
-        )
-        self.wallet = Wallet.objects.create(
-            user=self.user, balance=self.INITIAL_BALANCE
-        )
+        self.wallet = Wallet.objects.create(balance=self.INITIAL_BALANCE)
 
     def test_wallet_creation(self):
         """Кошелек был создан корректно."""
         self.assertIsInstance(self.wallet.id, UUID)
         self.assertEqual(self.wallet.balance, self.INITIAL_BALANCE)
-        self.assertEqual(self.wallet.user, self.user)
         expected = (
             f"Кошелек {self.wallet.id}; Баланс: {str(self.INITIAL_BALANCE)}"
         )
@@ -41,13 +32,8 @@ class WalletModelTest(TestCase):
     def test_wallet_balance_cannot_be_negative(self):
         """Баланс не может быть отрицательным."""
         with self.assertRaises(ValidationError):
-            wallet = Wallet(user=self.user, balance=Decimal("-1.00"))
+            wallet = Wallet(balance=Decimal("-1.00"))
             wallet.full_clean()
-
-    def test_wallet_user_one_to_one(self):
-        """У пользователя может быть только 1 кошелек."""
-        with self.assertRaises(IntegrityError):
-            Wallet.objects.create(user=self.user, balance=self.INITIAL_BALANCE)
 
     def test_operations_deleted_with_wallet(self):
         """Удаление кошелька удаляет связанные операции."""
@@ -68,12 +54,7 @@ class OperationModelTest(TestCase):
     INVALID_OPERATION_TYPE = "INVALID_OPERATION_TYPE"
 
     def setUp(self):
-        self.user = User.objects.create_user(
-            username=TEST_USERNAME, password=TEST_PASSWORD
-        )
-        self.wallet = Wallet.objects.create(
-            user=self.user, balance=self.INITIAL_BALANCE
-        )
+        self.wallet = Wallet.objects.create(balance=self.INITIAL_BALANCE)
         self.operation = Operation.objects.create(
             amount=self.TEST_VALID_AMOUNT,
             operation_type=OperationType.DEPOSIT,

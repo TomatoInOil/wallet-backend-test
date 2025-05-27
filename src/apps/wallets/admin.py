@@ -12,7 +12,7 @@ class OperationInline(admin.TabularInline):
 
 @admin.register(Wallet)
 class WalletAdmin(admin.ModelAdmin):
-    list_display = ("id", "user", "balance")
+    list_display = ("id", "balance")
     inlines = [OperationInline]
 
 

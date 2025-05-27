@@ -1,12 +1,9 @@
 from decimal import Decimal
 from uuid import uuid4
 
-from django.contrib.auth import get_user_model
 from django.core.validators import MinValueValidator
 from django.db import models
 from django.db.models import UUIDField
-
-User = get_user_model()
 
 
 class Wallet(models.Model):
@@ -20,11 +17,6 @@ class Wallet(models.Model):
         decimal_places=2,
         default=Decimal("0.00"),
         validators=[MinValueValidator(0)],
-    )
-    user = models.OneToOneField(
-        User,
-        on_delete=models.CASCADE,
-        related_name="wallet",
     )
 
     def __str__(self):
