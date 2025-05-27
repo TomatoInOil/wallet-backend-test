@@ -1,3 +1,4 @@
+[![Test and Lint](https://github.com/TomatoInOil/wallet-backend-test/actions/workflows/tests.yml/badge.svg)](https://github.com/TomatoInOil/wallet-backend-test/actions/workflows/tests.yml) [![Deploy](https://github.com/TomatoInOil/wallet-backend-test/actions/workflows/deploy.yml/badge.svg)](https://github.com/TomatoInOil/wallet-backend-test/actions/workflows/deploy.yml)
 # Wallet Service
 Простое _REST_-приложение на _Django_ для управления балансом кошельков. Поддерживает операции пополнения и снятия средств, с учётом конкурентного доступа. Система контейнеризована с использованием _Docker_ и _docker-compose_.
 
