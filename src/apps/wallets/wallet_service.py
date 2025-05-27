@@ -24,6 +24,6 @@ class WalletService:
         без внесения изменений в БД.
         """
         if wallet.balance < amount:
-            raise ValidationError("Недостаточно средств")
+            raise ValidationError({"amount": "Недостаточно средств"})
         wallet.balance -= amount
         return wallet

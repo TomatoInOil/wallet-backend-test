@@ -1,6 +1,7 @@
 from django.db import transaction
 from drf_spectacular.utils import extend_schema
 from rest_framework import status
+from rest_framework.exceptions import NotFound, ValidationError
 from rest_framework.generics import RetrieveAPIView
 from rest_framework.response import Response
 from rest_framework.views import APIView
@@ -15,6 +16,7 @@ class WalletView(RetrieveAPIView):
 
     queryset = Wallet.objects.all()
     serializer_class = WalletSerializer
+    lookup_url_kwarg = "wallet_id"
 
 
 class OperationCreateView(APIView):
@@ -26,7 +28,10 @@ class OperationCreateView(APIView):
     )
     @transaction.atomic
     def post(self, request, wallet_id):
-        wallet = Wallet.objects.select_for_update().get(id=wallet_id)
+        try:
+            wallet = Wallet.objects.select_for_update().get(id=wallet_id)
+        except Wallet.DoesNotExist:
+            raise NotFound()
 
         serializer = OperationSerializer(data=request.data)
         serializer.is_valid(raise_exception=True)
@@ -37,6 +42,16 @@ class OperationCreateView(APIView):
             WalletService.withdraw(wallet, amount)
         elif operation_type == OperationType.DEPOSIT:
             WalletService.deposit(wallet, amount)
+        else:
+            ValidationError(
+                {
+                    "operation_type": (
+                        "Недопустимое значение operation_type."
+                        f" Допустимы {OperationType.WITHDRAW},"
+                        f" {OperationType.DEPOSIT}."
+                    )
+                }
+            )
         wallet.save()
 
         operation = Operation.objects.create(

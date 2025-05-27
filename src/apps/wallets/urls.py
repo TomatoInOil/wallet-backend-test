@@ -11,6 +11,6 @@ urlpatterns = [
     path(
         "v1/wallets/<uuid:wallet_id>/operation/",
         OperationCreateView.as_view(),
-        name="wallet-operation",
+        name="operation-list",
     ),
 ]

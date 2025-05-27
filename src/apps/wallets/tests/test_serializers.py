@@ -19,7 +19,7 @@ class WalletSerializersTest(APITestCase):
             **self.wallet_attributes,
         )
         self.serializer_data = {
-            "id": "84a617e4-7344-4e69-84ad-50172a4ac0d8",
+            "id": uuid.uuid4(),
             "balance": self.INITIAL_BALANCE_STR,
         }
         self.serializer = WalletSerializer(
