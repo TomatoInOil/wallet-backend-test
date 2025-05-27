@@ -37,5 +37,9 @@ storage_config:
   filesystem:
     directory: /tmp/loki/chunks
 
+retention_config:
+  retention_period: 720h
+  enabled: true
+
 pattern_ingester:
   enabled: true

@@ -1,0 +1,220 @@
+[
+{
+  "model": "wallets.wallet",
+  "pk": "0ed00ad1-6fcb-428b-a8cf-46c2172e03ff",
+  "fields": {
+    "balance": "100.00"
+  }
+},
+{
+  "model": "wallets.wallet",
+  "pk": "1539e4cd-3ad1-46b2-8963-b27a18900a93",
+  "fields": {
+    "balance": "0.21"
+  }
+},
+{
+  "model": "wallets.wallet",
+  "pk": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+  "fields": {
+    "balance": "9823757925046.25"
+  }
+},
+{
+  "model": "wallets.wallet",
+  "pk": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+  "fields": {
+    "balance": "2951.22"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "1caa05c0-4943-4b87-a3e7-3f987f657a08",
+  "fields": {
+    "amount": "210.00",
+    "operation_type": "DEPOSIT",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:34:41.960Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "26b0b82f-bc39-49d2-baba-bff6ebdc8b88",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:37:57.086Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "2d6a64a7-b0ac-4b66-a64c-4226e9ff0668",
+  "fields": {
+    "amount": "15.00",
+    "operation_type": "WITHDRAW",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:35:34.626Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "3590934b-ef1c-4146-bbc2-6377b3f5069e",
+  "fields": {
+    "amount": "1673.00",
+    "operation_type": "DEPOSIT",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:34:48.027Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "396d5fed-6685-4232-b15e-9c5d99eeb70d",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:05.162Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "495e2d4e-a3a3-4751-b2c4-82848454e920",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:37:56.702Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "5ad02082-9a5f-4632-b89d-ed3c8283f352",
+  "fields": {
+    "amount": "100.40",
+    "operation_type": "WITHDRAW",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:35:28.068Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "6437312f-ca17-47b4-962c-2b960869953d",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:37:56.190Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "6652085a-f6f0-499b-9e01-87f6c9ecf63a",
+  "fields": {
+    "amount": "100.52",
+    "operation_type": "WITHDRAW",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:35:31.441Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "6ac6aa7a-e069-4d30-9be1-2071391335f1",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:03.575Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "6f04855d-2c06-479c-b82e-0ae2678abdae",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:04.796Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "75f6ecf6-81e3-4d09-9daf-7cde36d9a9da",
+  "fields": {
+    "amount": "1000.74",
+    "operation_type": "DEPOSIT",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:34:35.765Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "8e425c99-3033-4799-8f9e-14219dc448a2",
+  "fields": {
+    "amount": "283.40",
+    "operation_type": "DEPOSIT",
+    "wallet": "e89ddb5b-dc08-430b-b566-945338c1c0e7",
+    "created_at": "2025-05-27T08:34:57.640Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "b4167923-8ae8-4a58-a7a6-3b7349470847",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:03.160Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "b7e4a0b2-1eee-4ac5-84cb-d100c8b1e747",
+  "fields": {
+    "amount": "0.01",
+    "operation_type": "DEPOSIT",
+    "wallet": "1539e4cd-3ad1-46b2-8963-b27a18900a93",
+    "created_at": "2025-05-27T08:38:39.992Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "ba325a3a-d467-4438-98bf-a97c748f2d69",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:04.400Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "c108cec3-7220-4ffc-aa2e-0f0292730475",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:37:54.674Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "cca1d1a2-3487-4fd0-b045-359368150599",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:37:58.563Z"
+  }
+},
+{
+  "model": "wallets.operation",
+  "pk": "d4c1af33-0d72-4966-9913-4a1132129e29",
+  "fields": {
+    "amount": "123516.25",
+    "operation_type": "WITHDRAW",
+    "wallet": "80d1cfe9-47a5-45cb-b98f-ed869aa634d4",
+    "created_at": "2025-05-27T08:38:04.010Z"
+  }
+}
+]
